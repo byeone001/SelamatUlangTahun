@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kejutan Spesial - Nur Wafiq Azizah</title>
+    <meta name="description" content="Selamat Ulang Tahun, Nur Wafiq Azizah!">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Pacifico&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Background Music -->
+    <!-- Ganti 'lagu-ulang-tahun.mp3' dengan nama file lagu Anda -->
+    <audio id="bg-music" loop>
+        <source src="lagu-ulang-tahun.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Animated Background -->
+    <div id="particles-js"></div>
+
+    <!-- Welcome Screen / Game Instructions -->
+    <div class="screen active" id="welcome-screen">
+        <div class="glass-panel">
+            <div class="icon-pulse">🎮</div>
+            <h1 class="pink-gradient-text title-font">Halo, Nur Wafiq Azizah!</h1>
+            <p class="subtitle">Ada kejutan spesial yang menunggu untukmu...</p>
+
+            <div class="instruction-box">
+                <h3>🎀 Misi Spesial 🎀</h3>
+                <p>Tangkap (klik/tap) <strong>5 hati pink</strong> yang beterbangan untuk membuka kado ulang tahunmu!
+                </p>
+            </div>
+
+            <button id="start-btn" class="pink-glow-btn">Mulai Tantangan!</button>
+        </div>
+    </div>
+
+    <!-- The Game Screen -->
+    <div class="screen" id="game-screen">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+            <div class="progress-text" id="progress-text">0 / 5</div>
+        </div>
+        <div id="hearts-container"></div>
+        <!-- Pop-up messages container -->
+        <div id="popup-container"></div>
+    </div>
+
+    <!-- Candle Screen -->
+    <div class="screen" id="candle-screen">
+        <div class="glass-panel">
+            <h1 class="pink-gradient-text title-font">Make a Wish! 🕯️</h1>
+            <p class="subtitle">Klik lilinnya untuk tiup sebelum melihat kejutanmu!</p>
+            
+            <div class="candle-container" id="candle">
+                <div class="flame" id="flame"></div>
+                <div class="candle-stick"></div>
+            </div>
+            <p class="instruction-text mt-4">Ketuk apinya untuk meniup lilin</p>
+        </div>
+    </div>
+
+    <!-- Final Surprise Screen -->
+    <div class="screen" id="surprise-screen">
+        <div class="glass-panel celebrate">
+            <!-- SLIDER FOTO -->
+            <div class="photo-container" id="photo-slider">
+                <!-- Tambahkan lebih banyak img tag di bawah jika ingin fotonya berganti-ganti (contoh: foto-2.jpg, foto-3.jpg) -->
+                <img src="HALIM FOTO.jpg" class="slider-img active" alt="Foto Wafiq 1">
+                <img src="halim.jpg" class="slider-img" alt="Foto Wafiq 2">
+            </div>
+
+            <h1 class="pink-gradient-text title-font title-animate">Barakallah Fii Umrik!</h1>
+            <h2 class="name-animate title-font">Nur Wafiq Azizah 🎉🎂</h2>
+
+            <div class="message-box" id="typing-box">
+                <!-- Teks ini akan diketik secara otomatis oleh JavaScript -->
+            </div>
+
+            <p class="signature">- Enjoy your special day! 💖</p>
+
+            <!-- Tombol Kembali -->
+            <button id="home-btn" class="pink-outline-btn mt-4">🌸 Kembali ke Beranda</button>
+        </div>
+    </div>
+
+    <!-- External Libraries for Effects -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -132,18 +132,29 @@ document.addEventListener('DOMContentLoaded', () => {
             if (heart.classList.contains('caught')) return;
             heart.classList.add('caught');
 
-            // Interaction feedback
-            const rect = heart.getBoundingClientRect();
-            // Get center of the heart relative to the viewport
-            const x = rect.left + (rect.width / 2);
-            const y = rect.top + (rect.height / 2);
+            // Get interaction coordinates (mouse or touch)
+            let clientX, clientY;
+            if (e.type === 'touchstart' && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
 
-            createMiniConfetti(x, y);
+            // Fallback to bounding rect if event coordinates are missing
+            if (clientX === undefined) {
+                const rect = heart.getBoundingClientRect();
+                clientX = rect.left + (rect.width / 2);
+                clientY = rect.top + (rect.height / 2);
+            }
+
+            createMiniConfetti(clientX, clientY);
 
             // Show popup message occasionally
             if (Math.random() > 0.4) {
-                // Pass exact bounding rect to calculate popup bounds reliably
-                showPopupMessage(rect);
+                // Pass exact click/tap coordinates
+                showPopupMessage(clientX, clientY);
             }
 
             // Game logic
@@ -181,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.width = `${percentage}%`;
     }
 
-    function showPopupMessage(heartRect) {
+    function showPopupMessage(x, y) {
         const popup = document.createElement('div');
         popup.className = 'popup-message';
         popup.innerText = popupMessages[Math.floor(Math.random() * popupMessages.length)];
@@ -191,27 +202,27 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get actual popup dimensions after adding to DOM
         const popupRect = popup.getBoundingClientRect();
         
-        // Default position: slightly right and above the heart
-        let finalX = heartRect.right; 
-        let finalY = heartRect.top - 20;
+        // Default position: beside and slightly above the click point
+        let finalX = x + 30; // 30px to the right of the click
+        let finalY = y - 40; // 40px above the click
 
         const margin = 15;
 
         // Keep popup within screen bounds horizontally
         if (finalX + popupRect.width + margin > window.innerWidth) {
-            // Shift left so it doesn't overflow
-            finalX = window.innerWidth - popupRect.width - margin; 
-        } else if (finalX < margin) {
-            finalX = margin;
+            // If it goes off the right edge, move it to the left of the click
+            finalX = x - popupRect.width - 30; 
+            
+            // If moving it left pushes it off the left edge, just glue it to the left edge
+            if (finalX < margin) {
+                finalX = margin;
+            }
         }
 
         // Keep popup within screen bounds vertically
-        if (finalY - popupRect.height < margin) {
-            // Shift below the heart if there is no space above
-            finalY = heartRect.bottom + 10;
-        } else {
-            // Adjust upwards by its own height to truly sit above
-            finalY -= popupRect.height; 
+        if (finalY < margin) {
+            // Shift below the click if there is no space above
+            finalY = y + 30;
         }
 
         popup.style.left = `${finalX}px`;

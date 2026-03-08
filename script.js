@@ -42,16 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingBox = document.getElementById('typing-box');
 
     // Game Variables
-    let caughtHearts = 0;
-    const targetHearts = 5;
+    let caughtStars = 0;
+    const targetStars = 5;
     let spawnInterval;
-    const heartEmojis = ['💖', '💗', '💓', '💝', '💕'];
+    const starEmojis = ['⭐', '🌟', '✨', '💫', '🎁'];
     const popupMessages = [
-        "Semangat Wafiq! ✨",
-        "Sedikit lagi! 🌸",
-        "Kamu pasti bisa! 💕",
-        "Ihhh jago banget! 💖",
-        "Yeayyy berhasill! 🎉"
+        "Ayo semangat! ✨",
+        "Wih jago! 🌟",
+        "Sedikit lagi! 🎁",
+        "Keren banget! 💫",
+        "Yeay berhasill! 🎉"
     ];
 
     // Final Message for Typewriter Effect
@@ -91,46 +91,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Reset elements and show welcome screen
         setTimeout(() => {
-            caughtHearts = 0;
+            caughtStars = 0;
             updateProgressBar();
             welcomeScreen.classList.add('active');
         }, 600);
     });
 
     function startGame() {
-        caughtHearts = 0;
+        caughtStars = 0;
         updateProgressBar();
-        // Spawn hearts slightly faster on laptops since it's easier with a mouse and wider screen
+        // Spawn stars slightly faster on laptops since it's easier with a mouse and wider screen
         const spawnDelay = isMobile ? 900 : 700;
-        spawnInterval = setInterval(spawnHeart, spawnDelay);
+        spawnInterval = setInterval(spawnStar, spawnDelay);
         // Spawn one immediately
-        spawnHeart();
+        spawnStar();
     }
 
-    function spawnHeart() {
-        const heart = document.createElement('div');
-        // Pick random heart emoji
-        heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-        heart.classList.add('floating-heart');
+    function spawnStar() {
+        const star = document.createElement('div');
+        // Pick random star emoji
+        star.innerText = starEmojis[Math.floor(Math.random() * starEmojis.length)];
+        star.classList.add('floating-star');
 
         // Ensure hearts spawn more towards the center on ultra-wide monitors
         const minLeft = window.innerWidth > 1200 ? 25 : 10;
         const widthRange = window.innerWidth > 1200 ? 50 : 80;
 
         const leftPos = Math.random() * widthRange + minLeft;
-        heart.style.left = `${leftPos}%`;
+        star.style.left = `${leftPos}%`;
 
         // Random float duration (faster on mobile since height is smaller)
         const minDuration = isMobile ? 3 : 4;
         const duration = Math.random() * 2 + minDuration;
-        heart.style.animationDuration = `${duration}s`;
+        star.style.animationDuration = `${duration}s`;
 
         // Event handler for catching
-        const catchHeart = (e) => {
+        const catchStar = (e) => {
             e.preventDefault(); // Prevent ghost clicks on mobile
 
-            if (heart.classList.contains('caught')) return;
-            heart.classList.add('caught');
+            if (star.classList.contains('caught')) return;
+            star.classList.add('caught');
 
             // Get interaction coordinates (mouse or touch)
             let clientX, clientY;
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Fallback to bounding rect if event coordinates are missing
             if (clientX === undefined) {
-                const rect = heart.getBoundingClientRect();
+                const rect = star.getBoundingClientRect();
                 clientX = rect.left + (rect.width / 2);
                 clientY = rect.top + (rect.height / 2);
             }
@@ -158,37 +158,37 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Game logic
-            caughtHearts++;
+            caughtStars++;
             updateProgressBar();
 
             // Remove element after animation
             setTimeout(() => {
-                if (heart.parentNode) heart.remove();
+                if (star.parentNode) star.remove();
             }, 400);
 
             // Check Win Condition
-            if (caughtHearts >= targetHearts) {
+            if (caughtStars >= targetStars) {
                 endGame();
             }
         };
 
         // Support both mouse and touch securely
-        heart.addEventListener('mousedown', catchHeart);
-        heart.addEventListener('touchstart', catchHeart, { passive: false });
+        star.addEventListener('mousedown', catchStar);
+        star.addEventListener('touchstart', catchStar, { passive: false });
 
-        heartsContainer.appendChild(heart);
+        heartsContainer.appendChild(star);
 
-        // Clean up heart if it floats off screen
+        // Clean up star if it floats off screen
         setTimeout(() => {
-            if (heart.parentNode && !heart.classList.contains('caught')) {
-                heart.remove();
+            if (star.parentNode && !star.classList.contains('caught')) {
+                star.remove();
             }
         }, duration * 1000);
     }
 
     function updateProgressBar() {
-        progressText.innerText = `${caughtHearts} / ${targetHearts}`;
-        const percentage = (caughtHearts / targetHearts) * 100;
+        progressText.innerText = `${caughtStars} / ${targetStars}`;
+        const percentage = (caughtStars / targetStars) * 100;
         progressBar.style.width = `${percentage}%`;
     }
 
@@ -253,9 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function endGame() {
         clearInterval(spawnInterval);
 
-        // Prevent any pending hearts from being clicked
-        const remainingHearts = document.querySelectorAll('.floating-heart');
-        remainingHearts.forEach(h => h.style.pointerEvents = 'none');
+        // Prevent any pending stars from being clicked
+        const remainingStars = document.querySelectorAll('.floating-star');
+        remainingStars.forEach(h => h.style.pointerEvents = 'none');
 
         // Transition screens
         setTimeout(() => {
@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 // Show candle screen instead of surprise screen
-        // Remove all hearts safely
+                // Remove all stars safely
                 heartsContainer.innerHTML = '';
 
                 // Show candle blowing screen

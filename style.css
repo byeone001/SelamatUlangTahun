@@ -228,8 +228,8 @@ body {
     z-index: 15;
 }
 
-/* Floating Hearts Area Constraints for Laptops vs Mobile */
-.floating-heart {
+/* Floating Stars Area Constraints for Laptops vs Mobile */
+.floating-star {
     position: absolute;
     bottom: -150px;
     font-size: clamp(3rem, 6vw, 5rem);
@@ -238,11 +238,11 @@ body {
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     animation: floatUp linear forwards;
-    filter: drop-shadow(0 0 15px var(--pink-glow));
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
     transition: transform 0.2s;
 }
 
-.floating-heart:hover {
+.floating-star:hover {
     transform: scale(1.1) rotate(0deg) !important;
     /* Visual cue for mouse users on laptop */
 }
@@ -267,7 +267,7 @@ body {
     }
 }
 
-.floating-heart.caught {
+.floating-star.caught {
     animation: popCaught 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     pointer-events: none;
 }

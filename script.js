@@ -151,11 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             createMiniConfetti(clientX, clientY);
 
-            // Show popup message occasionally
-            if (Math.random() > 0.4) {
-                // Pass exact click/tap coordinates
-                showPopupMessage(clientX, clientY);
-            }
+            // Pass exact click/tap coordinates to show popup message every time
+            showPopupMessage(clientX, clientY);
 
             // Game logic
             caughtStars++;

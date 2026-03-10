@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 if (drop.parentNode) drop.remove();
             }, (duration + 0.5) * 1000); 
-        }, 50); // Spawn dirapatkan (50ms) agar lebih banyak
+        }, 25); // Spawn dirapatkan (50ms) agar lebih banyak
     }
     
     createRain();

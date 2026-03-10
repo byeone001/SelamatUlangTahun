@@ -311,14 +311,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 candleScreen.classList.remove('active');
                 
                 setTimeout(() => {
+                    startOpeningSequence();
+                }, 600);
+            }, 800);
+        }
+    });
+
+    // Opening Sequence Logic
+    function startOpeningSequence() {
+        const openingScreen = document.getElementById('opening-screen');
+        const openingText = document.getElementById('opening-text');
+        
+        openingScreen.classList.add('active');
+        
+        const sequence = ["3", "2", "1", "HAPPY", "BIRTHDAY", "TO", "ZIZIE"];
+        
+        function showNextWord(index) {
+            if (index >= sequence.length) {
+                // Finish opening sequence
+                openingScreen.classList.remove('active');
+                setTimeout(() => {
                     surpriseScreen.classList.add('active');
                     fireGrandConfetti();
                     startPhotoSlider();
                     startTypewriterEffect();
                 }, 600);
-            }, 800);
+                return;
+            }
+            
+            // Remove class to reset animation
+            openingText.classList.remove('show');
+            
+            setTimeout(() => {
+                openingText.innerText = sequence[index];
+                openingText.classList.add('show');
+                
+                // Keep the word on screen for a moment, then next
+                // Slower for words, slightly faster for countdown numbers
+                const readDuration = sequence[index].length > 1 ? 1800 : 1200;
+                
+                setTimeout(() => {
+                    openingText.classList.remove('show'); // fade out
+                    setTimeout(() => {
+                        showNextWord(index + 1);
+                    }, 1200); // Wait for smooth CSS fade out transition (1.2s)
+                }, readDuration);
+            }, 100); // Small delay to allow CSS reset
         }
-    });
+        
+        showNextWord(0);
+    }
 
     // Photo Slider Logic
     function startPhotoSlider() {

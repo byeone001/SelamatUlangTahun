@@ -142,6 +142,7 @@ body {
 .pink-gradient-text {
     background: linear-gradient(135deg, #ffffff, var(--pink-accent), var(--pink-primary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 3rem;
     margin-bottom: 0.5rem;
@@ -498,6 +499,56 @@ h2.name-animate {
     .pink-outline-btn {
         padding: 10px 20px;
         font-size: 0.95rem;
+    }
+}
+
+/* Opening Text Sequence */
+#opening-screen {
+    justify-content: center;
+    overflow: hidden;
+}
+
+.giant-text {
+    font-size: 8rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    color: var(--text-light);
+    text-shadow: 0 0 30px var(--pink-glow), 0 0 60px var(--pink-primary);
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+    transition: opacity 1.2s ease-in-out, transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff, var(--pink-accent), var(--pink-primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 20px;
+    margin: 0;
+    line-height: 1.2;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.giant-text.show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+@media (max-width: 1024px) {
+    .giant-text {
+        font-size: 6.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .giant-text {
+        font-size: 4.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .giant-text {
+        font-size: 3.2rem;
     }
 }
 

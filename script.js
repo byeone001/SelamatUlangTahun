@@ -30,26 +30,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function createRain() {
         const rainContainer = document.getElementById('rain-container');
         if (!rainContainer) return;
-        
+
         setInterval(() => {
             const drop = document.createElement('div');
             drop.classList.add('raindrop');
-            
+
             // Randomize horizontal position and duration
             drop.style.left = `${Math.random() * 100}vw`;
             const duration = Math.random() * 1.5 + 1.2; // Diperlama (antara 1.2s - 2.7s) agar turun perlahan tapi pasti
             drop.style.animationDuration = `${duration}s`;
             drop.style.opacity = Math.random() * 0.5 + 0.5; // Opacity minimum ditingkatkan ke 0.5 agar lebih jelas
-            
+
             rainContainer.appendChild(drop);
-            
+
             // Clean up the div setelah durasi fall ditambah sedikit jeda untuk aman
             setTimeout(() => {
                 if (drop.parentNode) drop.remove();
-            }, (duration + 0.5) * 1000); 
+            }, (duration + 0.5) * 1000);
         }, 25); // Spawn dirapatkan (50ms) agar lebih banyak
     }
-    
+
     createRain();
 
     // Elements
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start Game Event
     startBtn.addEventListener('click', () => {
         // Play Background Music
-        if(bgMusic.paused) {
+        if (bgMusic.paused) {
             bgMusic.play().catch(e => console.log("Audio play failed:", e));
             bgMusic.volume = 0.5; // Set volume to 50%
         }
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     homeBtn.addEventListener('click', () => {
         // Hide surprise screen
         surpriseScreen.classList.remove('active');
-        
+
         // Reset flame for next time
         flame.classList.remove('blown-out');
 
@@ -225,12 +225,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const popup = document.createElement('div');
         popup.className = 'popup-message';
         popup.innerText = popupMessages[Math.floor(Math.random() * popupMessages.length)];
-        
+
         popupContainer.appendChild(popup);
 
         // Get actual popup dimensions after adding to DOM
         const popupRect = popup.getBoundingClientRect();
-        
+
         // Default position: beside and slightly above the click point
         let finalX = x + 30; // 30px to the right of the click
         let finalY = y - 40; // 40px above the click
@@ -240,8 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Keep popup within screen bounds horizontally
         if (finalX + popupRect.width + margin > window.innerWidth) {
             // If it goes off the right edge, move it to the left of the click
-            finalX = x - popupRect.width - 30; 
-            
+            finalX = x - popupRect.width - 30;
+
             // If moving it left pushes it off the left edge, just glue it to the left edge
             if (finalX < margin) {
                 finalX = margin;
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         popup.style.left = `${finalX}px`;
         popup.style.top = `${finalY}px`;
-        
+
         // Remove after animation completes
         setTimeout(() => {
             if (popup.parentNode) popup.remove();
@@ -300,16 +300,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 600);
         }, 500);
     }
-    
+
     // Candle Interaction
     candle.addEventListener('click', () => {
         if (!flame.classList.contains('blown-out')) {
             flame.classList.add('blown-out');
-            
+
             // Wait for blow out animation, then transition
             setTimeout(() => {
                 candleScreen.classList.remove('active');
-                
+
                 setTimeout(() => {
                     startOpeningSequence();
                 }, 600);
@@ -321,11 +321,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function startOpeningSequence() {
         const openingScreen = document.getElementById('opening-screen');
         const openingText = document.getElementById('opening-text');
-        
+
         openingScreen.classList.add('active');
-        
+
         const sequence = ["3", "2", "1", "HAPPY", "BIRTHDAY", "TO", "ZIZIE"];
-        
+
         function showNextWord(index) {
             if (index >= sequence.length) {
                 // Finish opening sequence
@@ -338,18 +338,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 600);
                 return;
             }
-            
+
             // Remove class to reset animation
             openingText.classList.remove('show');
-            
+
             setTimeout(() => {
                 openingText.innerText = sequence[index];
                 openingText.classList.add('show');
-                
+
                 // Keep the word on screen for a moment, then next
                 // Slower for words, slightly faster for countdown numbers
                 const readDuration = sequence[index].length > 1 ? 1800 : 1200;
-                
+
                 setTimeout(() => {
                     openingText.classList.remove('show'); // fade out
                     setTimeout(() => {
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, readDuration);
             }, 100); // Small delay to allow CSS reset
         }
-        
+
         showNextWord(0);
     }
 
@@ -368,31 +368,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (images.length === 0) return;
 
         let currentIndex = 0;
-        
+
         function updateCarousel() {
             images.forEach((img, i) => {
                 let diff = i - currentIndex;
-                
+
                 // Adjust for wrapping seamlessly
                 const total = images.length;
                 if (diff < -Math.floor(total / 2)) diff += total;
                 if (diff > Math.floor(total / 2)) diff -= total;
-                
+
                 // Calculate sliding and scaling
                 let translateX = diff * 70; // Slide distance between photos
                 let scale = 1 - Math.abs(diff) * 0.2; // Size decreases by 20% each step
                 let zIndex = 10 - Math.abs(diff); // Center photo always on top
                 let opacity = 1 - Math.abs(diff) * 0.3; // Fades out the further away
-                
+
                 img.style.transform = `translateX(${translateX}px) scale(${scale})`;
                 img.style.zIndex = zIndex;
                 img.style.opacity = opacity;
             });
         }
-        
+
         // Initial setup
         updateCarousel();
-        
+
         // Loop every 2.5 seconds
         setInterval(() => {
             currentIndex = (currentIndex + 1) % images.length;
@@ -403,33 +403,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Typewriter Effect Logic
     function startTypewriterEffect() {
         typingBox.innerHTML = ''; // Clear previous content
-        
+
         // Create an invisible div to parse the HTML string into nodes
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = finalMessageHTML;
-        
+
         const cursor = document.createElement('span');
         cursor.className = 'typing-cursor';
-        
+
         let nodeIndex = 0;
         let charIndex = 0;
         let currentElement = null;
-        
+
         function typeNext() {
             if (nodeIndex >= tempDiv.childNodes.length) {
                 // Finished typing all nodes, remove cursor
                 cursor.remove();
                 return;
             }
-            
+
             const node = tempDiv.childNodes[nodeIndex];
-            
+
             // If it's a text node within the root
             if (node.nodeType === Node.TEXT_NODE) {
                 typingBox.appendChild(document.createTextNode(node.textContent));
                 nodeIndex++;
                 typeNext();
-            } 
+            }
             // If it's an element node (like <p>)
             else if (node.nodeType === Node.ELEMENT_NODE) {
                 if (!currentElement) {
@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     typingBox.appendChild(currentElement);
                     currentElement.appendChild(cursor); // add cursor to current paragraph
                 }
-                
+
                 if (charIndex < node.textContent.length) {
                     // Type one character
                     const char = document.createTextNode(node.textContent.charAt(charIndex));
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 typeNext();
             }
         }
-        
+
         // Start typing
         typeNext();
     }

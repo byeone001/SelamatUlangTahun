@@ -49,10 +49,14 @@ body {
 
 .raindrop {
     position: absolute;
-    top: -50px; /* Mulai sedikit lebih tinggi agar mulus */
-    width: 3px; /* Ditebalkan sedikit */
-    height: 35px; /* Dilamakan/dipanjangkan agar lebih terlihat seperti hujan deras */
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 182, 193, 0.9)); /* Warna ditingkatkan opacitynya */
+    top: -50px;
+    /* Mulai sedikit lebih tinggi agar mulus */
+    width: 3px;
+    /* Ditebalkan sedikit */
+    height: 35px;
+    /* Dilamakan/dipanjangkan agar lebih terlihat seperti hujan deras */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 182, 193, 0.9));
+    /* Warna ditingkatkan opacitynya */
     border-radius: 5px;
     animation: rainFall linear forwards;
 }
@@ -61,9 +65,12 @@ body {
     0% {
         transform: translateY(0);
     }
+
     100% {
-        transform: translateY(120vh); /* Pastikan melewati layar ditiap jenis device */
-        transform: translateY(calc(100vh + 100px)); /* Fallback universal */
+        transform: translateY(120vh);
+        /* Pastikan melewati layar ditiap jenis device */
+        transform: translateY(calc(100vh + 100px));
+        /* Fallback universal */
     }
 }
 
@@ -331,7 +338,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1000px; /* Provides depth for the custom transform */
+    perspective: 1000px;
+    /* Provides depth for the custom transform */
     z-index: 5;
 }
 
@@ -593,9 +601,9 @@ h2.name-animate {
     height: 45px;
     background: #ffdb58;
     border-radius: 50% 50% 20% 20%;
-    box-shadow: 
-        0 0 20px #ffdb58, 
-        0 -10px 40px #ff8c00, 
+    box-shadow:
+        0 0 20px #ffdb58,
+        0 -10px 40px #ff8c00,
         0 -20px 60px #ff4500;
     transform-origin: bottom center;
     animation: flicker 0.1s infinite alternate, flutter 2s infinite ease-in-out;
@@ -616,13 +624,27 @@ h2.name-animate {
 }
 
 @keyframes flicker {
-    0% { transform: scale(1) rotate(-1deg); box-shadow: 0 0 20px #ffdb58, 0 -10px 40px #ff8c00; }
-    100% { transform: scale(1.05) rotate(1deg); box-shadow: 0 0 25px #ffdb58, 0 -15px 50px #ff8c00; }
+    0% {
+        transform: scale(1) rotate(-1deg);
+        box-shadow: 0 0 20px #ffdb58, 0 -10px 40px #ff8c00;
+    }
+
+    100% {
+        transform: scale(1.05) rotate(1deg);
+        box-shadow: 0 0 25px #ffdb58, 0 -15px 50px #ff8c00;
+    }
 }
 
 @keyframes flutter {
-    0%, 100% { border-radius: 50% 50% 20% 20%; }
-    50% { border-radius: 40% 60% 20% 20%; }
+
+    0%,
+    100% {
+        border-radius: 50% 50% 20% 20%;
+    }
+
+    50% {
+        border-radius: 40% 60% 20% 20%;
+    }
 }
 
 /* Popup Messages */
@@ -642,11 +664,30 @@ h2.name-animate {
 }
 
 @keyframes floatUpFade {
-    0% { transform: translateY(20px) scale(0.8); opacity: 0; }
-    20% { transform: translateY(0) scale(1.1); opacity: 1; }
-    30% { transform: translateY(-5px) scale(1); opacity: 1; }
-    80% { transform: translateY(-30px) scale(1); opacity: 1; }
-    100% { transform: translateY(-50px) scale(0.9); opacity: 0; }
+    0% {
+        transform: translateY(20px) scale(0.8);
+        opacity: 0;
+    }
+
+    20% {
+        transform: translateY(0) scale(1.1);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translateY(-5px) scale(1);
+        opacity: 1;
+    }
+
+    80% {
+        transform: translateY(-30px) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-50px) scale(0.9);
+        opacity: 0;
+    }
 }
 
 /* Typing Effect */
@@ -661,6 +702,13 @@ h2.name-animate {
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     // 1. Initialize Particles as Floating Bubbles
     tsParticles.load("particles-js", {
         background: { color: { value: "transparent" } },
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             number: { density: { enable: true, area: 800 }, value: 50 },
             opacity: { value: 0.4, animation: { enable: true, speed: 1, minimumValue: 0.1 } },
             shape: { type: "circle" },
-            size: { random: true, value: 6, animation: { enable: true, speed: 2, minimumValue: 2 } }
+            size: { random: true, value: 25, animation: { enable: true, speed: 2, minimumValue: 5 } }
         },
         detectRetina: true
     });
@@ -36,17 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Randomize horizontal position and duration
             drop.style.left = `${Math.random() * 100}vw`;
-            const duration = Math.random() * 1 + 0.8; // between 0.8s and 1.8s
+            const duration = Math.random() * 1.5 + 1.2; // Diperlama (antara 1.2s - 2.7s) agar turun perlahan tapi pasti
             drop.style.animationDuration = `${duration}s`;
-            drop.style.opacity = Math.random() * 0.5 + 0.2;
+            drop.style.opacity = Math.random() * 0.5 + 0.5; // Opacity minimum ditingkatkan ke 0.5 agar lebih jelas
             
             rainContainer.appendChild(drop);
             
-            // Clean up the div after it finishes animating
+            // Clean up the div setelah durasi fall ditambah sedikit jeda untuk aman
             setTimeout(() => {
                 if (drop.parentNode) drop.remove();
-            }, duration * 1000);
-        }, 80); // Spawn a drop every 80ms
+            }, (duration + 0.5) * 1000); 
+        }, 50); // Spawn dirapatkan (50ms) agar lebih banyak
     }
     
     createRain();

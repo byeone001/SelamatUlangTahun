@@ -49,10 +49,10 @@ body {
 
 .raindrop {
     position: absolute;
-    top: -20px;
-    width: 2px;
-    height: 20px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 182, 193, 0.8));
+    top: -50px; /* Mulai sedikit lebih tinggi agar mulus */
+    width: 3px; /* Ditebalkan sedikit */
+    height: 35px; /* Dilamakan/dipanjangkan agar lebih terlihat seperti hujan deras */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 182, 193, 0.9)); /* Warna ditingkatkan opacitynya */
     border-radius: 5px;
     animation: rainFall linear forwards;
 }
@@ -62,7 +62,8 @@ body {
         transform: translateY(0);
     }
     100% {
-        transform: translateY(110vh);
+        transform: translateY(120vh); /* Pastikan melewati layar ditiap jenis device */
+        transform: translateY(calc(100vh + 100px)); /* Fallback universal */
     }
 }
 

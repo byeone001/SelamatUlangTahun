@@ -84,7 +84,7 @@ body {
     flex-direction: column;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: opacity 1s ease-in-out, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform: scale(0.95) translateY(20px);
     padding: 20px;
     z-index: 10;

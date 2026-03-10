@@ -23,11 +23,12 @@
     <!-- Background Music -->
     <!-- Ganti 'lagu-ulang-tahun.mp3' dengan nama file lagu Anda -->
     <audio id="bg-music" loop>
-        <source src="lagu.mp3" type="audio/mpeg">
+        <source src="lagu ini.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Animated Background -->
     <div id="particles-js"></div>
+    <div id="rain-container"></div>
 
     <!-- Welcome Screen / Game Instructions -->
     <div class="screen active" id="welcome-screen">
@@ -38,7 +39,7 @@
 
             <div class="instruction-box">
                 <h3>🎀 Misi Spesial 🎀</h3>
-                <p>Tangkap (klik/tap) <strong>5 bintang ajaib</strong> yang beterbangan untuk membuka kado ulang tahunmu!
+                <p>Tangkap (klik/tap) <strong>10 bintang ajaib</strong> yang beterbangan untuk membuka kado ulang tahunmu!
                 </p>
             </div>
 
@@ -50,7 +51,7 @@
     <div class="screen" id="game-screen">
         <div class="progress-container">
             <div class="progress-bar" id="progress-bar"></div>
-            <div class="progress-text" id="progress-text">0 / 5</div>
+            <div class="progress-text" id="progress-text">0 / 10</div>
         </div>
         <div id="hearts-container"></div>
         <!-- Pop-up messages container -->
@@ -75,10 +76,13 @@
     <div class="screen" id="surprise-screen">
         <div class="glass-panel celebrate">
             <!-- SLIDER FOTO -->
-            <div class="photo-container" id="photo-slider">
-                <!-- Tambahkan lebih banyak img tag di bawah jika ingin fotonya berganti-ganti (contoh: foto-2.jpg, foto-3.jpg) -->
-                <img src="HALIM FOTO.jpg" class="slider-img active" alt="Foto Wafiq 1">
-                <img src="halim.jpg" class="slider-img" alt="Foto Wafiq 2">
+            <!-- SLIDER FOTO CAROUSEL -->
+            <div class="photo-carousel" id="photo-slider">
+                <img src="foto1.jpg" class="slider-img" alt="Foto 1">
+                <img src="foto2.jpg" class="slider-img" alt="Foto 2">
+                <img src="foto3.jpg" class="slider-img" alt="Foto 3">
+                <img src="foto4.jpg" class="slider-img" alt="Foto 4">
+                <img src="foto5.jpg" class="slider-img" alt="Foto 5">
             </div>
 
             <h1 class="pink-gradient-text title-font title-animate">Barakallah Fii Umrik!</h1>

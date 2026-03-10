@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initialize Particles with Pink Theme
+    // 1. Initialize Particles as Floating Bubbles
     tsParticles.load("particles-js", {
         background: { color: { value: "transparent" } },
         fpsLimit: 60,
@@ -9,21 +9,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 resize: true
             },
             modes: {
-                bubble: { distance: 200, duration: 2, size: 6, opacity: 0.8 }
+                bubble: { distance: 200, duration: 2, size: 10, opacity: 0.8 }
             }
         },
         particles: {
-            color: { value: ["#ff1493", "#ff69b4", "#ffb6c1", "#ffffff"] },
-            links: { color: "#ff69b4", distance: 150, enable: true, opacity: 0.2, width: 1 },
+            color: { value: ["#ffffff", "#ffb6c1", "#ff69b4", "#ff1493"] },
+            links: { enable: false }, // Turn off links to look like independent bubbles
             collisions: { enable: true },
-            move: { direction: "none", enable: true, outModes: { default: "bounce" }, random: true, speed: 1.2, straight: false },
-            number: { density: { enable: true, area: 800 }, value: 70 },
-            opacity: { value: 0.6, animation: { enable: true, speed: 1, minimumValue: 0.1 } },
+            move: { direction: "top", enable: true, outModes: { default: "out" }, random: true, speed: 1.5, straight: false },
+            number: { density: { enable: true, area: 800 }, value: 50 },
+            opacity: { value: 0.4, animation: { enable: true, speed: 1, minimumValue: 0.1 } },
             shape: { type: "circle" },
-            size: { random: true, value: 4, animation: { enable: true, speed: 2, minimumValue: 1 } }
+            size: { random: true, value: 6, animation: { enable: true, speed: 2, minimumValue: 2 } }
         },
         detectRetina: true
     });
+
+    // 2. Continuous Rain Effect
+    function createRain() {
+        const rainContainer = document.getElementById('rain-container');
+        if (!rainContainer) return;
+        
+        setInterval(() => {
+            const drop = document.createElement('div');
+            drop.classList.add('raindrop');
+            
+            // Randomize horizontal position and duration
+            drop.style.left = `${Math.random() * 100}vw`;
+            const duration = Math.random() * 1 + 0.8; // between 0.8s and 1.8s
+            drop.style.animationDuration = `${duration}s`;
+            drop.style.opacity = Math.random() * 0.5 + 0.2;
+            
+            rainContainer.appendChild(drop);
+            
+            // Clean up the div after it finishes animating
+            setTimeout(() => {
+                if (drop.parentNode) drop.remove();
+            }, duration * 1000);
+        }, 80); // Spawn a drop every 80ms
+    }
+    
+    createRain();
 
     // Elements
     const startBtn = document.getElementById('start-btn');
@@ -43,10 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Game Variables
     let caughtStars = 0;
-    const targetStars = 5;
+    const targetStars = 10;
     let spawnInterval;
-    const starEmojis = ['⭐', '🌟', '✨', '💫', '🎁'];
+    const starEmojis = ['⭐', '🌟', '✨', '💫', '🎁', '⭐', '🌟', '✨', '💫', '🎁'];
     const popupMessages = [
+        "Ayo semangat! ✨",
+        "Wih jago! 🌟",
+        "Sedikit lagi! 🎁",
+        "Keren banget! 💫",
+        "Yeay berhasill! 🎉",
         "Ayo semangat! ✨",
         "Wih jago! 🌟",
         "Sedikit lagi! 🎁",
@@ -291,14 +322,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // Photo Slider Logic
     function startPhotoSlider() {
         const images = document.querySelectorAll('.slider-img');
-        if (images.length <= 1) return; // No need to slide if only 1 image
+        if (images.length === 0) return;
 
         let currentIndex = 0;
+        
+        function updateCarousel() {
+            images.forEach((img, i) => {
+                let diff = i - currentIndex;
+                
+                // Adjust for wrapping seamlessly
+                const total = images.length;
+                if (diff < -Math.floor(total / 2)) diff += total;
+                if (diff > Math.floor(total / 2)) diff -= total;
+                
+                // Calculate sliding and scaling
+                let translateX = diff * 70; // Slide distance between photos
+                let scale = 1 - Math.abs(diff) * 0.2; // Size decreases by 20% each step
+                let zIndex = 10 - Math.abs(diff); // Center photo always on top
+                let opacity = 1 - Math.abs(diff) * 0.3; // Fades out the further away
+                
+                img.style.transform = `translateX(${translateX}px) scale(${scale})`;
+                img.style.zIndex = zIndex;
+                img.style.opacity = opacity;
+            });
+        }
+        
+        // Initial setup
+        updateCarousel();
+        
+        // Loop every 2.5 seconds
         setInterval(() => {
-            images[currentIndex].classList.remove('active');
             currentIndex = (currentIndex + 1) % images.length;
-            images[currentIndex].classList.add('active');
-        }, 3000); // Change image every 3 seconds
+            updateCarousel();
+        }, 2500);
     }
 
     // Typewriter Effect Logic

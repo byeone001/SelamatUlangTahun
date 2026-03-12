@@ -712,3 +712,250 @@ h2.name-animate {
         opacity: 0;
     }
 }
+
+/* ============================================================
+   CONFESSION SCREEN — Minta Izin Masuk ke Hatinya
+   ============================================================ */
+
+#confession-screen {
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.confession-panel {
+    max-width: 520px;
+    padding: 3rem 2.5rem;
+    min-height: 420px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Stars sparkle background inside panel */
+.confession-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 20, 147, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 182, 193, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: 30px;
+}
+
+/* Individual step wrapper */
+.confession-step {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: stepIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    width: 100%;
+}
+
+.confession-step.active {
+    display: flex;
+}
+
+@keyframes stepIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Big emoji icon per step */
+.confession-icon {
+    font-size: 5rem;
+    margin-bottom: 1.2rem;
+    filter: drop-shadow(0 0 15px rgba(255, 20, 147, 0.5));
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Heartbeat for "yes" answer icon */
+.heart-beat {
+    animation: heartBeat 0.8s ease-in-out infinite !important;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    30% { transform: scale(1.3); }
+    60% { transform: scale(1.1); }
+}
+
+/* Title for each step */
+.confession-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    background: linear-gradient(135deg, #ffffff, var(--pink-accent), var(--pink-primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+/* Normal description text */
+.confession-desc {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 300;
+    max-width: 400px;
+}
+
+/* The main question — highlighted */
+.confession-question {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--pink-accent);
+    font-style: italic;
+    margin: 1.2rem 0;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 20, 147, 0.12);
+    border-left: 4px solid var(--pink-primary);
+    border-radius: 0 15px 15px 0;
+    text-shadow: 0 0 10px rgba(255, 20, 147, 0.4);
+    line-height: 1.6;
+    animation: questionPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes questionPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(255, 20, 147, 0); }
+    50% { box-shadow: 0 0 20px rgba(255, 20, 147, 0.25); }
+}
+
+/* Button container */
+.confession-btns {
+    display: flex;
+    gap: 14px;
+    margin-top: 1.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Yes button */
+.conf-btn-yes {
+    background: linear-gradient(45deg, var(--pink-primary), var(--pink-light));
+    border: none;
+    padding: 13px 35px;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.1rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--pink-glow);
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.conf-btn-yes:hover {
+    transform: translateY(-3px) scale(1.07);
+    box-shadow: 0 5px 30px rgba(255, 20, 147, 0.8);
+}
+
+.conf-btn-yes:active {
+    transform: scale(0.95);
+}
+
+/* No button */
+.conf-btn-no {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 11px 30px;
+    border-radius: 50px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.conf-btn-no:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Floating mini hearts after "yes" */
+.mini-float-heart {
+    position: absolute;
+    font-size: 1.8rem;
+    pointer-events: none;
+    animation: miniHeartFloat 3s ease-out forwards;
+    z-index: 50;
+}
+
+@keyframes miniHeartFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-200px) scale(0.6) rotate(30deg);
+    }
+}
+
+/* Progress dots at top */
+.confession-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.confession-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 105, 180, 0.3);
+    transition: all 0.4s ease;
+}
+
+.confession-dot.filled {
+    background: var(--pink-primary);
+    box-shadow: 0 0 8px var(--pink-glow);
+    transform: scale(1.3);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .confession-title { font-size: 1.6rem; }
+    .confession-desc { font-size: 1rem; }
+    .confession-question { font-size: 1.15rem; }
+    .confession-icon { font-size: 4rem; }
+    .confession-panel { padding: 2rem 1.2rem; }
+}
+
+/* Quote penutup di step-final */
+.confession-quote {
+    margin-top: 20px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--pink-light);
+    text-shadow: 0 0 12px rgba(255, 105, 180, 0.5);
+    line-height: 1.7;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 105, 180, 0.2);
+    width: 100%;
+    text-align: center;
+    animation: quoteFade 1.5s ease-in-out;
+}
+
+@keyframes quoteFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

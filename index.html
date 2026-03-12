@@ -9,7 +9,7 @@
 
     <!-- Favicon (Logonya) -->
     <!-- Ganti href dengan nama file logo Anda, bisa .png, .jpg, atau .ico -->
-    <link rel="icon" type="image/png" href="icon.jpeg">
+    <link rel="icon" type="image/png" href="NEW.png">
 
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
@@ -84,8 +84,8 @@
             <!-- SLIDER FOTO -->
             <!-- SLIDER FOTO CAROUSEL -->
             <div class="photo-carousel" id="photo-slider">
-                <img src="halim.jpg" class="slider-img" alt="Foto 1">
-                <img src="HALIM FOTO.jpg" class="slider-img" alt="Foto 2">
+                <img src="foto 1.jpeg" class="slider-img" alt="Foto 1">
+                <img src="foto 2.jpeg" class="slider-img" alt="Foto 2">
                 <img src="halim.jpg" class="slider-img" alt="Foto 3">
                 <img src="HALIM FOTO.jpg" class="slider-img" alt="Foto 4">
                 <img src="halim.jpg" class="slider-img" alt="Foto 5">
@@ -100,8 +100,69 @@
 
             <p class="signature">- Enjoy your special day! ✨</p>
 
-            <!-- Tombol Kembali -->
-            <button id="home-btn" class="pink-outline-btn mt-4">🌸 Kembali ke Beranda</button>
+            <!-- Tombol Kembali & Lanjut -->
+            <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+                <button id="home-btn" class="pink-outline-btn mt-4">🌸 Kembali ke Beranda</button>
+                <button id="confession-btn" class="pink-glow-btn mt-4">Let me tell you something... 💌</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confession Screen: Minta Izin Masuk ke Hatinya -->
+    <div class="screen" id="confession-screen">
+        <div class="glass-panel confession-panel">
+
+            <!-- Step 0: Intro -->
+            <div class="confession-step active" id="step-0">
+                <div class="confession-icon" id="conf-icon-0">💌</div>
+                <h2 class="confession-title">Ada Satu Hal...</h2>
+                <p class="confession-desc">Di hari spesialmu ini, ada sesuatu yang sudah lama ingin ku sampaikan. Boleh aku bicara sebentar?</p>
+                <div class="confession-btns">
+                    <button class="conf-btn-yes" onclick="nextStep(1)">Boleh 😊</button>
+                </div>
+            </div>
+
+            <!-- Step 1: Perkenalan Perasaan -->
+            <div class="confession-step" id="step-1">
+                <div class="confession-icon" id="conf-icon-1">🌿</div>
+                <h2 class="confession-title">Aku Bertanya-tanya...</h2>
+                <p class="confession-desc">Apakah kamu pernah menyadari, ada seseorang yang selalu menunggumu setiap hari — bahkan tanpa kamu tahu?</p>
+                <div class="confession-btns">
+                    <button class="conf-btn-yes" onclick="nextStep(2)">Siapa? 🤔</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Pengakuan -->
+            <div class="confession-step" id="step-2">
+                <div class="confession-icon" id="conf-icon-2">🤍</div>
+                <h2 class="confession-title">Yaaa.... itu aku</h2>
+                <p class="confession-desc">Aku tahu ini mungkin mengejutkan, dan hampir tidak mungkin, tapi aku ingin kamu tahu...</p>
+                <div class="confession-btns">
+                    <button class="conf-btn-yes" onclick="nextStep(3)">Lanjutkan... 🌸</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Pernyataan — bukan pertanyaan -->
+            <div class="confession-step" id="step-3">
+                <div class="confession-icon" id="conf-icon-3">🤍</div>
+                <h2 class="confession-title">ada sesuatu yang ingin ku sampaikan...</h2>
+                <p class="confession-desc">entah bagaimana, bisa dilogikakan atau tidak, aku hanya ingin kamu tahu...</p>
+                <p class="confession-question">"Bisakah kamu membuka hatimu untuk ku?"</p>
+                <p class="confession-desc">Mungkin ini tidak masuk akal, tapi aku hanya ingin kamu <em>tahu</em>. Itu saja sudah lebih dari cukup.</p>
+                <div class="confession-btns">
+                    <button class="conf-btn-yes" onclick="nextStep('final')">Aku mengerti... 🌿</button>
+                </div>
+            </div>
+
+            <!-- Step Final: Penutup hangat -->
+            <div class="confession-step" id="step-final">
+                <div class="confession-icon" id="conf-icon-final">🌸</div>
+                <p class="confession-quote">Selamat ulang tahun, Zizie. Semoga harimu seindah dirimu. 🌹</p>
+                <div class="confession-btns">
+                    <button class="conf-btn-yes" onclick="backToHome()">Terima kasih 🤲</button>
+                </div>
+            </div>
+
         </div>
     </div>
 

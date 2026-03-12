@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Final Message for Typewriter Effect
     const finalMessageHTML = `
-        <p>Selamat bertambah usia! Semoga panjang umur, sehat selalu, rezekinya semakin lancar, dan semua impian serta cita-citamu segera terwujud.</p>
+        <p>Selamat bertambah usia zi! Semoga panjang umur, sehat selalu, rezekinya semakin lancar, dan semua impian serta cita-citamu segera terwujud.</p>
         <p>Tetaplah menjadi pribadi yang baik, ceria, dan selalu membuat orang di sekitarmu tersenyum. Hari ini adalah hari spesialmu, semoga penuh dengan kebahagiaan!</p>
     `;
 
@@ -508,4 +508,91 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, 100);
     }
+
+    // ============================================================
+    // CONFESSION SCREEN — Minta Izin Masuk ke Hatinya
+    // ============================================================
+    const confessionBtn = document.getElementById('confession-btn');
+    const confessionScreen = document.getElementById('confession-screen');
+
+    // Inject progress dots into each numbered step
+    const totalDots = 4;
+    ['step-0','step-1','step-2','step-3'].forEach(id => {
+        const step = document.getElementById(id);
+        if (!step) return;
+        const dotsEl = document.createElement('div');
+        dotsEl.className = 'confession-dots';
+        for (let i = 0; i < totalDots; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'confession-dot';
+            dotsEl.appendChild(dot);
+        }
+        step.prepend(dotsEl);
+    });
+
+    function updateDots(activeIdx) {
+        document.querySelectorAll('.confession-step').forEach(step => {
+            step.querySelectorAll('.confession-dot').forEach((dot, i) => {
+                dot.classList.toggle('filled', i <= activeIdx);
+            });
+        });
+    }
+
+    confessionBtn.addEventListener('click', () => {
+        surpriseScreen.classList.remove('active');
+        setTimeout(() => {
+            document.querySelectorAll('.confession-step').forEach(s => s.classList.remove('active'));
+            const s0 = document.getElementById('step-0');
+            s0.classList.add('active');
+            updateDots(0);
+            confessionScreen.classList.add('active');
+        }, 600);
+    });
+
+    function switchStep(toId) {
+        const cur = document.querySelector('.confession-step.active');
+        if (cur) cur.classList.remove('active');
+        const next = document.getElementById(toId);
+        if (!next) return;
+        next.classList.add('active');
+        // Re-trigger animation
+        next.style.animation = 'none';
+        requestAnimationFrame(() => { next.style.animation = ''; });
+    }
+
+    window.nextStep = function(n) {
+        // n bisa angka (1,2,3) atau string ('final')
+        const targetId = (typeof n === 'number') ? `step-${n}` : `step-${n}`;
+        switchStep(targetId);
+        // Update dots hanya untuk step numerik 0-3
+        if (typeof n === 'number' && n <= 3) updateDots(n);
+        // Efek khusus saat masuk step-final: petals lembut
+        if (n === 'final') {
+            const panel = confessionScreen.querySelector('.confession-panel');
+            const petals = ['🌸','🍃','✨','🌙','⭐'];
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const p = document.createElement('div');
+                    p.className = 'mini-float-heart';
+                    p.innerText = petals[Math.floor(Math.random() * petals.length)];
+                    p.style.left = `${Math.random() * 80 + 10}%`;
+                    p.style.bottom = `${Math.random() * 20 + 5}%`;
+                    p.style.fontSize = '1.4rem';
+                    p.style.animationDuration = `${Math.random() * 2 + 2.5}s`;
+                    panel.appendChild(p);
+                    setTimeout(() => p.remove(), 5000);
+                }, i * 220);
+            }
+        }
+    };
+
+    window.backToHome = function() {
+        confessionScreen.classList.remove('active');
+        flame.classList.remove('blown-out');
+        setTimeout(() => {
+            caughtStars = 0;
+            updateProgressBar();
+            welcomeScreen.classList.add('active');
+        }, 600);
+    };
 });
